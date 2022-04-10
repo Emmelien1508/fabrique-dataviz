@@ -1,0 +1,4 @@
+# Stappen
+1. Ik begin altijd eerst met drie bestanden: index.html, script.js en styles.css. In het CSS bestand declareer ik globale variables, zoals kleuren bijvoorbeeld. Ik heb gekeken naar het lettertype en de kleuren op de website van Vitens, die ik vervolgens heb gebruikt in mijn CSS. Het font heb ik van Google Fonts geimporteerd.
+2. Daarna heb ik een general markup van de HTML pagina gemaakt, met header en main tags. Ook heb ik een aantal standaard CSS klasses gedefineerd, zoals flex, row, space-between, etc. die ik overal in de HTML kan gebruiken.
+3. Vanuit daar werk ik van boven naar beneden: eerst de header, navigatie, dan knoppen, grafieken en daaronder knopjes en tekst. Ik gebruik CSS klasses die ik al heb gedefineerd, maar voor specifieke elementen specificeer ik apart in de CSS.

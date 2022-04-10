@@ -1,0 +1,26 @@
+[
+  {
+    "datetime":"01",
+    "verbruik":3363.0
+  },
+  {
+    "datetime":"02",
+    "verbruik":3066.0
+  },
+  {
+    "datetime":"03",
+    "verbruik":3392.0
+  },
+  {
+    "datetime":"04",
+    "verbruik":3236.0
+  },
+  {
+    "datetime":"05",
+    "verbruik":3257.0
+  },
+  {
+    "datetime":"06",
+    "verbruik":3277.0
+  }
+]

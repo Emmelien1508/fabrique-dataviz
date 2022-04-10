@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waterverbruik</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="script.js"></script>
+</head>
+<body>
+    <header class="flex col space-center">
+        <div class="flex row space-between">
+            <h2>Jouw waterverbruik</h2>
+            <div class="icon flex row space-center align-center">
+                <svg width="20" height="22" viewBox="0 0 18 25" xmlns="http://www.w3.org/2000/svg">
+                    <g fill="#2c3c8a">
+                        <path d="M17.8 16.382c0-1.932-1.553-3.34-3.472-3.34H3.49c-1.913 0-3.47 1.408-3.47 3.34L0 20.292v4.662h17.828v-4.662l-.03-3.91z"></path>
+                        <path d="M14.118 5.872c0 7.828-10.942 7.828-10.942 0 0-7.83 10.942-7.83 10.942 0"></path>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        <div class="flex row space-evenly">
+            <p class="timeframe hourly" data-timeframe="charts-hourly" data-state="unselected">Per uur</p>
+            <p class="timeframe daily" data-timeframe="charts-daily" data-state="selected">Per dag</p>
+            <p class="timeframe monthly" data-timeframe="charts-monthly" data-state="unselected">Per maand</p>
+        </div>
+    </header>
+    <main>
+        <div class="checkboxes">
+            <label class="checkbox-container blue-checkbox">
+                Toon gemiddelde van afgelopen 30 dagen
+                <input class="checkbox-blue" type="checkbox" checked="checked">
+                <span class="checkmark"></span>
+            </label>
+            <label class="checkbox-container yellow-checkbox">
+                Toon vergelijkbare huishoudens
+                <input class="checkbox-yellow" type="checkbox">
+                <span class="checkmark"></span>
+            </label>
+        </div>
+        <div class="chart-titles">
+            <div class="titles titles-hourly flex row space-between">
+                <p class="date">Vrijdag 30</p>
+                <p class="aggregate">
+                    <span class="bold">dagtotaal</span>
+                    &nbsp;
+                    <span class="blue-bg white-text">57L</span>
+                </p>
+            </div>
+            <div class="titles titles-daily flex row space-between">
+                <p class="date">November</p>
+                <p class="aggregate"></p>
+            </div>
+            <div class="titles titles-monthly flex row space-between">
+                <p class="date">2021</p>
+                <p class="aggregate"></p>
+            </div>
+        </div>
+        <div class="charts-section">
+            <div class="charts charts-hourly"></div>
+            <div class="charts charts-daily"></div>
+            <div class="charts charts-monthly"></div>
+        </div>
+        <div class="subtext flex col">
+            <p><span class="highlighted-text">Goed bezig!</span></p>
+            <p>Minder dan 35% verbruikt minder dan jij</p>
+        </div>
+        <div class="buttons flex row space-between align-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+            </svg>
+            <button class="btn">naar vandaag</button>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
+            </svg>
+        </div>
+    </main>
+
+    <script src="https://d3js.org/d3.v4.js"></script>
+
+</body>
+</html>
