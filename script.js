@@ -45,8 +45,9 @@ function createChart(timeframe) {
     const aggregate = document.querySelector(".aggregate");
     // set the dimensions and margins of the graph
     var margin = {top: 30, right: 60, bottom: 70, left: 60};
-    var width = 500 - margin.left - margin.right;
+    var width = 600 - margin.left - margin.right;
     var height = 500 - margin.top - margin.bottom;
+    var aspect = width / height;
 
     // append the svg object to the body of the page
     var svg = d3.select(`.${timeframe}`)
@@ -56,6 +57,13 @@ function createChart(timeframe) {
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+    d3.select(window)
+        .on("resize", function() {
+            var targetWidth = svg.node().getBoundingClientRect().width;
+            svg.attr("width", targetWidth + margin.left + margin.right);
+            svg.attr("height", targetWidth / aspect + margin.top + margin.bottom);
+        });
+        
     // var defs = svg.append('defs');
     // var lg = defs.append('linearGradient')
     //     .attr('id', 'gradient')
@@ -72,51 +80,47 @@ function createChart(timeframe) {
     
     // Parse the Data
     d3.json(`https://raw.githubusercontent.com/Emmelien1508/fabrique-dataviz/main/data/${timeframe.slice(7)}_data.json`, function(data) {
+        let yAxisHeight, tickLabels;
         if (timeframe == "charts-hourly") {
             yAxisHeight = 50;
             data = data.filter(function(d,i){ return i<24 })
+            tickLabels = [
+                '0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', 
+                '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', 
+                '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', 
+                '19:00', '20:00', '21:00', '22:00', '23:00', '24:00'
+            ];
         } else if (timeframe == "charts-daily") {
             yAxisHeight = 200;
             data = data.filter(function(d,i){ return i<6 })
+            tickLabels = ['ma', 'di', 'wo', 'do', 'vr', 'za'];
         } else {;    
             yAxisHeight = 3500;
             data = data.filter(function(d,i){ return i<6 })
+            tickLabels = ['Jan', 'Feb', 'Mrt', 'Apr', 'Mei', 'Jun'];
         }
 
         // X axis
         var x = d3.scaleBand()
             .range([ 0, width])
-            .domain(data.map(function(d) { 
-                return d.datetime;
-                // const date = new Date(d.datetime)
-                // if (date instanceof Date && isFinite(date)) {
-                //     const weekday = new Intl.DateTimeFormat('nl-NL', {weekday: 'short'}).format(date);
-                //     if (timeframe == "charts-daily") {
-                //         const day = date.getDate();
-                //         return `${weekday} ${day}`;
-                //     } else {
-                //         // then its hour
-                //         const hour = date.getHours();
-                //         return `${hour}:00`;
-                //     }
-
-                // } else {
-                //     return d.datetime
-                // }
-            }))
+            .domain(data.map(function(d) { return d.datetime; }))
             .padding(0.2);
+        let xAxisGenerator = d3.axisBottom(x);
+        xAxisGenerator.tickFormat((d,i) => tickLabels[i]);
         svg.append("g")
             .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x))
+            .call(xAxisGenerator)
             .selectAll("text")
                 .style("text-anchor", "middle");
 
-        // Add Y axis
+        // Y axis
         var y = d3.scaleLinear()
             .domain([0, yAxisHeight])
             .range([ height, 0]);
+        let yAxisGenerator = d3.axisLeft(y);
+        yAxisGenerator.tickSize(-width);
         svg.append("g")
-            .call(d3.axisLeft(y));
+            .call(yAxisGenerator);
         
         // Bars
         svg.selectAll("mybar")
